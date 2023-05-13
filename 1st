@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main()
+{
+    char command[100];  // buffer to store user command
+
+    while (1) {
+        printf("Enter a command: ");
+        scanf("%s", command);  // read user input
+
+        // do something with the user command
+        printf("You entered: %s\n", command);
+    }
+
+    return 0;
+}
