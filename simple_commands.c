@@ -9,33 +9,29 @@
  * Return: -2 to indicate shell exit with a given exit status.
  */
 #include <stdlib.h>
-
 int shell_exit(info_t *g)
 {
-	int exit_status = 0;
+    int exit_status;
 
-	if (g->argv[1] != NULL)
-	{
-		exit_status = atoi(g->argv[1]);
-		if (exit_status == 0 && g->argv[1][0] != '0')
-		{
-			/* Handle errors*/
-		}
-	}
+    if (g->argv[1])
+    {
+      exit_status = string_to_integer(g->argv[1]);
+        if (exit_status == -1)
+        {
+            g->status = 2;
+            print_error(g, "Illegal number: ");
+            _eputs(g->argv[1]);
+            _eputchar('\n');
+            return (1);
+        }
+    }
+    // Missing closing bracket for the if statement
+    // and the shell_exit function
 
-	/*( Rest of the code*/
-	return (exit_status);
-}
+    // Additional code can be added here if necessary
 
-g(~~) > status = 2;
-print_error(g, "Illegal number: ");
-_eputs(g->argv[1]);
-_eputchar('\n');
-return (1);
-}
-g->err_num = string_to_integer(g->argv[1]);
-return (-2);
-}
+} // Added closing bracket for the shell_exit function
+
 g->err_num = -1;
 return (-2);
 }
