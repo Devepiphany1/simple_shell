@@ -14,7 +14,7 @@ void _gputs(char *g)
 		return;
 	while (g[v] != '\0')
 	{
-		_gputchar(g[v]);
+		_putchar(g[v]);
 		v++;
 	}
 }
