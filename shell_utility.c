@@ -1,0 +1,75 @@
+#include "simple.h"
+#include "main.c"
+#include <fcntl.h>
+/**
+ * check_interactive_mode - Determines
+ * if the shell is running in interactive mode.
+ * @info: Pointer to the info_t structure.
+ *
+ * Return: 1 if running in interactive mode, 0 otherwise.
+ */
+int check_interactive_mode(void)
+{
+	return (isatty(STDIN_FILENO) && (fcntl(STDIN_FILENO, F_GETFD) <= 2));
+}
+
+/**
+ * is_delimiter - Checks if a character is a delimiter.
+ * @c: The character to check.
+ * @delim: The delimiter string.
+ *
+ * Return: 1 if the character is a delimiter, 0 otherwise.
+ */
+int is_delimiter(char c, char *v)
+{
+	while (*v != '\0')
+	{
+		if (*v == c)
+			return (1);
+		v++;
+	}
+	return (0);
+}
+
+/**
+ * is_alphabetic - Checks if a character is an alphabetic character.
+ * @c: The character to check.
+ *
+ * Return: 1 if the character is alphabetic, 0 otherwise.
+ */
+int is_alphabetic(int c)
+{
+	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
+
+/**
+ * string_to_integer - Converts a string to an integer.
+ * @s: The string to be converted.
+ *
+ * Return: The converted integer value
+ * 0 if no valid number is found in the string.
+ */
+int string_to_integer(char *s)
+{
+	int i, sign = 1, flag = 0, output;
+	unsigned int result = 0;
+
+	for (i = 0; s[i] != '\0' && flag != 2; i++)
+	{
+		if (s[i] == '-')
+			sign *= -1;
+
+		if (s[i] >= '0' && s[i] <= '9')
+		{
+			flag = 1;
+			result = result * 10 + (s[i] - '0');
+		}
+		else if (flag == 1)
+			flag = 2;
+	}
+
+	output = (sign == -1) ? -result : result;
+	return (output);
+}
