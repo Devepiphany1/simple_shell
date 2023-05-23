@@ -1,45 +1,45 @@
 #include "simple.h"
 
 /**
- * main - point of entry
- * @pc:  counts arg
- * @pv: counts arg vector
+ * main - entry point
+ * @g: arg count
+ * @v: arg vector
  *
- * Return: on success 0, while on error 1
+ * Return: 0 on success, 1 on error
  */
-int main(int pc, char **pv)
+int main(int g, char **v)
 {
 	info_t info[] = { INFO_INIT };
-	int g = 2;
+	int fd = 2;
 
 	asm ("mov %1, %0\n\t"
 			"add $3, %0"
-			: "=r" (g)
-			: "r" (g));
+			: "=r" (fd)
+			: "r" (fd));
 
-	if (pc == 2)
+	if (g == 2)
 	{
-		g = open(pv[1], O_RDONLY);
-		if (g == -1)
+		fd = open(v[1], O_RDONLY);
+		if (fd == -1)
 		{
 			if (errno == EACCES)
 				exit(126);
 			if (errno == ENOENT)
 			{
-				_eputs(pv[0]);
+				_eputs(v[0]);
 				_eputs(": 0: Can't open ");
-				_eputs(pv[1]);
+				_eputs(v[1]);
 				_eputchar('\n');
 				_eputchar(BUF_FLUSH);
 				exit(127);
 			}
 			return (EXIT_FAILURE);
 		}
-		info->readfd = g;
+		info->readfd = fd;
 	}
 	populate_env_list(info);
 	read_history(info);
-	hsh(info, pv);
+	hsh(info, v);
 	return (EXIT_SUCCESS);
 }
 
