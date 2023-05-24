@@ -1,5 +1,5 @@
 #include "simple.h"
-#include "main.c"
+#include "team.c"
 #include <stdio.h>
 #include <stdlib.h>
 /**
@@ -25,7 +25,7 @@ int shell_exit(info_t *g)
             return (1);
         }
     }
-    // Missing closing bracket for the if statement
+    // Missing closing bracket for the if statement//
     // and the shell_exit function
 
     // Additional code can be added here if necessary

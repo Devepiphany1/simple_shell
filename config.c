@@ -89,8 +89,7 @@ int print_alias(list_t *node)
 int manage_alias(info_t *info)
 {
 	int g = 0;
-	char !*v = 0;
-	char *p = NULL;
+       char *p = NULL;
 	list_t *node = NULL;
 
 	if (info->argc == 1)
