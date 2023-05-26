@@ -1,13 +1,13 @@
-#include "simple.h
+#include "simple.h"
 
 /**
- * is_chain - tests if current char in buffer is a chain delimiter
- * @g: parameter struct
- * @v: char buffer
- * @p: address of current position in buffer
- *
- * Return: 1 if it's a chain delimiter, 0 otherwise
- */
+* is_chain - tests if current char in buffer is a chain delimiter
+* @g: parameter struct
+* @v: char buffer
+* @p: address of current position in buffer
+*
+* Return: 1 if it's a chain delimiter, 0 otherwise
+*/
 int is_chain(info_t *g, char *v, size_t *p)
 {
 size_t j = *p;
@@ -35,15 +35,16 @@ return 1;
 }
 
 /**
- * check_chain - checks whether we should continue chaining based on last status
- * @g: parameter struct
- * @v: char buffer
- * @p: address of current position in buffer
- * @i: starting position in buffer
- * @len: length of buffer
- *
- * Return: Void
- */
+* check_chain - checks whether we
+* should continue chaining based on last status
+* @g: parameter struct
+* @v: char buffer
+* @p: address of current position in buffer
+* @i: starting position in buffer
+* @len: length of buffer
+*
+* Return: Void
+*/
 void check_chain(info_t *g, char *v, size_t *p, size_t i, size_t len)
 {
 size_t j = *p;
@@ -67,11 +68,11 @@ j = len;
 }
 
 /**
- * replace_alias - replaces an alias in tokenized string
- * @g: parameter struct
- *
- * Return: 1 if replaced, 0 otherwise
- */
+* replace_alias - replaces an alias in tokenized string
+* @g: parameter struct
+*
+* Return: 1 if replaced, 0 otherwise
+*/
 int replace_alias(info_t *g)
 {
 int i;
@@ -95,11 +96,11 @@ return 1;
 }
 
 /**
- * replace_vars - replaces variables in tokenized string
- * @g: parameter struct
- *
- * Return: 1 if replaced, 0 otherwise
- */
+* replace_vars - replaces variables in tokenized string
+* @g: parameter struct
+*
+* Return: 1 if replaced, 0 otherwise
+*/
 int replace_vars(info_t *g)
 {
 int i = 0;
@@ -108,7 +109,7 @@ for (i = 0; g->argv[i]; i++)
 {
 if (g->argv[i][0] != '$' || !g->argv[i][1])
 continue;
-if (!_strcmp(g->argv[i], "$?"))
+if (!_strcmp(g->argv[i], "$ ? "))
 {
 replace_string(&(g->argv[i]), _strdup(convert_number(g->status, 10, 0)));
 continue;
@@ -130,12 +131,12 @@ return 0;
 }
 
 /**
- * replace_string - replaces string
- * @old: address of old string
- * @new: new string
- *
- * Return: 1 if replaced, 0 otherwise
- */
+* replace_string - replaces string
+* @old: address of old string
+* @new: new string
+*
+* Return: 1 if replaced, 0 otherwise
+*/
 int replace_string(char **old, char *new)
 {
 free(*old);

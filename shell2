@@ -1,20 +1,23 @@
 #include "simple.h"
 
-int execute_shell(info_t *g, char **v) {
+int execute_shell(info_t *g, char **v)
+{
 ssize_t r = 0;
 int builtin_ret = 0;
-while (r != -1 && builtin_ret != -2) {
+while (r != -1 && builtin_ret != -2)
+{
 clear_info(g);
-if (is_interactive(g))
+if (interactive)
 _puts("$ ");
 _eputchar(BUF_FLUSH);
 r = get_input(g);
-if (r != -1) {
+if (r != -1)
+{
 set_info(g, v);
 builtin_ret = find_builtin(g);
 if (builtin_ret == -1)
 find_command(g);
-} 
+}
 else if (is_interactive(g))
 _putchar('\n');
 free_info(g, 0);
@@ -29,13 +32,13 @@ if (g->err_num == -1)
 exit(g->status);
 exit(g->err_num);
 }
-return builtin_ret;
+return (builtin_ret);
 }
-int find_builtin(info_t *g) 
+int find_builtin(info_t *g)
 {
 int i, builtin_ret = -1;
-builtin_table builtins[] = 
-{
+builtin_table builtins[] = {
+
 {"exit", _myexit},
 {"env", _myenv},
 {"help", _myhelp},
@@ -56,7 +59,7 @@ builtin_ret = builtins[i].func(g);
 break;
 }
 }
-return builtin_ret;
+return (builtin_ret);
 }
 void find_command(info_t *g)
 {
@@ -72,15 +75,18 @@ count = count_non_delim(g->arg);
 if (count == 0)
 return;
 path = find_in_path(g, _getenv(g, "PATH="), g->argv[0]);
-if (path) {
+if (path)
+{
 g->path = path;
 execute_command(g);
 }
-else 
+else
 {
-if ((is_interactive(g) || _getenv(g, "PATH=") || g->argv[0][0] == '/') && is_command(g, g->argv[0]))
+if ((is_interactive(g) || _getenv(g, "PATH=")
+			|| g->argv[0][0] == '/') && is_command(g, g->argv[0]))
 execute_command(g);
-else if (*(g->arg) != '\n') {
+else if (*(g->arg) != '\n')
+{
 g->status = 127;
 print_error(g, "not found\n");
 }
