@@ -1,5 +1,7 @@
 #include "simple.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 /**
 * is_chain - tests if current char in buffer is a chain delimiter
 * @g: parameter struct
@@ -143,3 +145,51 @@ free(*old);
 *old = new;
 return 1;
 }
+
+int node_starts_with(const char *str, const char *prefix) {
+    size_t prefix_len = strlen(prefix);
+    size_t str_len = strlen(str);
+
+    if (prefix_len > str_len) {
+        return 0;
+    }
+
+    return strncmp(str, prefix, prefix_len) == 0;
+}
+
+char* _strchr(const char *str, int c) {
+    while (*str != '\0') {
+        if (*str == c) {
+            return (char*)str;
+        }
+        str++;
+    }
+    return NULL;
+}
+
+char* _strdup(const char *str) {
+    size_t len = strlen(str);
+    char *dup = malloc(len + 1);
+    if (dup != NULL) {
+        strcpy(dup, str);
+    }
+    return dup;
+}
+
+int _strcmp(const char *str1, const char *str2) {
+    while (*str1 != '\0' && *str1 == *str2) {
+        str1++;
+        str2++;
+    }
+    return *(unsigned char*)str1 - *(unsigned char*)str2;
+}
+
+int convert_number(const char *str) {
+    return atoi(str);
+}
+
+int main() {
+    // Your main program logic here
+    return 0;
+}
+
