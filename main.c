@@ -1,45 +1,44 @@
-#include "simple.h"
+#include "shell.h"
 
 /**
- * main - point of entry
- * @pc:  counts arg
- * @pv: counts arg vector
+ * main - is the entry point
+ * @ac: symbolizes arg count
+ * @av: symbolizes arg vector
  *
- * Return: on success 0, while on error 1
+ * Return: 0 on success, 1 on error
  */
-int main(int pc, char **pv)
+int main(int ac, char **av)
 {
-	info_t info[] = { INFO_INIT };
-	int g = 2;
+info_t info[] = { INFO_INIT };
+int fd = 2;
+asm ("mov %1, %0\n\t"
+"add $3, %0"
+: "=r" (fd)
+: "r" (fd));
 
-	asm ("mov %1, %0\n\t"
-			"add $3, %0"
-			: "=r" (g)
-			: "r" (g));
-
-	if (pc == 2)
-	{
-		g = open(pv[1], O_RDONLY);
-		if (g == -1)
-		{
-			if (errno == EACCES)
-				exit(126);
-			if (errno == ENOENT)
-			{
-				_eputs(pv[0]);
-				_eputs(": 0: Can't open ");
-				_eputs(pv[1]);
-				_eputchar('\n');
-				_eputchar(BUF_FLUSH);
-				exit(127);
-			}
-			return (EXIT_FAILURE);
-		}
-		info->readfd = g;
-	}
-	populate_env_list(info);
-	read_history(info);
-	hsh(info, pv);
-	return (EXIT_SUCCESS);
+if (ac == 2)
+{
+fd = open(av[1], O_RDONLY);
+if (fd == -1)
+{
+if (errno == EACCES)
+exit(126);
+if (errno == ENOENT)
+{
+_eputs(av[0]);
+_eputs(": 0: Can't open ");
+_eputs(av[1]);
+_eputchar('\n');
+_eputchar(BUF_FLUSH);
+exit(127);
+}
+return (EXIT_FAILURE);
+}
+info->readfd = fd;
+}
+populate_env_list(info);
+read_history(info);
+hsh(info, av);
+return (EXIT_SUCCESS);
 }
 
