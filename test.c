@@ -2,14 +2,14 @@
 #include <stdlib.h>
 
 /**
-* Main file: Return 0
-* program prints the text
+* Main - Entry point
+* Return: 0 if SUCCESS and -1 if ERROT
 */
 
-int main()
+int main(void)
 {
 
 printf("Hello world!");
-return 0;
+return (0);
 
 }
