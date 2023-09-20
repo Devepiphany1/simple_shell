@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /**
-* Main - Entry point
+* main - Entry point
 * Return: 0 if SUCCESS and -1 if ERROT
 */
 
